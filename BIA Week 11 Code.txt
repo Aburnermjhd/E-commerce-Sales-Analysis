@@ -1,0 +1,38 @@
+Code 1
+
+# ggplot Basic: Geometric geom_violin ----
+ggplot(sales_data, aes(x = Product.Category, y = Sales, color = City, fill = City)) +
+  geom_violin(trim = FALSE) +
+  labs(title = "Violin Plot of Sales by Product Category and City")
+
+
+Code 2
+# ggplot Advance: facet_wrap with interaction ----
+ggplot(sales_data, aes(x = Product.Category, y = Sales, fill = Product.Category)) +
+  geom_boxplot(width = 0.5, alpha = 0.7) +
+  facet_wrap(~ Time.of.Day, scales = "free_y") +  # Facet by Time of Day with free y-scales
+  labs(title = "Boxplot of Sales by Product Category Faceted by Time of Day",
+       x = "Product Category",
+       y = "Sales") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 8),
+        legend.position = "none")  # Remove legend to reduce clutter
+# Save the plot with custom dimensions to improve readability
+ggsave("facet_wrap_plot.png", width = 12, height = 8)
+
+
+Code 3
+# ggplot Advance: Statistic geom_smooth with GAM ----
+ggplot(sales_data, aes(x = Quantity.Ordered, y = Sales, color = City)) +
+  geom_point() +
+  facet_wrap(~ City) +
+  geom_smooth(method = "gam", se = TRUE) +  # GAM for smoothing
+  labs(title = "Scatter Plot of Quantity Ordered vs Sales with GAM Smoothing")
+
+
+Code 4
+# ggplot Advance: Color Gradient ----
+ggplot(sales_data, aes(x = Quantity.Ordered, y = Sales, color = Sales)) +
+  geom_point(size = 3, alpha = 0.6) +
+  scale_color_gradient(low = "lightblue", high = "darkblue") +
+  labs(title = "Sales vs Quantity Ordered with Color Gradient by Sales")
